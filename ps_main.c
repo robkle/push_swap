@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ps_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 14:21:17 by rklein            #+#    #+#             */
+/*   Updated: 2020/07/07 15:25:08 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 void	ft_push_swap_a(t_nums **st_a)
 {
@@ -10,7 +21,7 @@ void	ft_push_swap_a(t_nums **st_a)
 
 	ops = NULL;
 	st_b = NULL;
-	while (ft_order(*st_a) == 0)
+	while (!ft_order(*st_a))
 	{
 		sec = (*st_a)->next;
 		last = ft_last_link(*st_a);
@@ -30,21 +41,18 @@ void	ft_push_swap_a(t_nums **st_a)
 	ft_push_b(st_a, &st_b, &ops);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	
 	t_nums	*stack_a;
+	char	**par;
 
-	if (argc > 2)
+	if (argc >= 2)
 	{
-		if(!ft_valid_num(argv))
-		{
-			ft_putstr("Error\n");
+		par = argc == 2 ? ft_strsplit(argv[1], ' ') : ft_parcpy(argc, argv);
+		if (!ft_validator(par) || !(stack_a = ft_make_list(par)))
 			return (0);
-		}
-		if(!(stack_a = ft_make_list(argc, argv)))
-			return (0);
-		ft_push_swap_a(&stack_a);
-	}	
+		if (!ft_order(stack_a))
+			ft_push_swap_a(&stack_a);
+	}
 	return (0);
 }

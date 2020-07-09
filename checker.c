@@ -1,7 +1,18 @@
-#include "push_swap.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 14:23:34 by rklein            #+#    #+#             */
+/*   Updated: 2020/06/01 14:32:10 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void   ft_rrot(t_nums **stack)
+#include "push_swap.h"
+
+static void	ft_rrot(t_nums **stack)
 {
 	t_nums	*begin;
 	t_nums	*last;
@@ -20,21 +31,21 @@ static void   ft_rrot(t_nums **stack)
 		new = new->next;
 		new->num = (*stack)->num;
 		tmp = (*stack)->next;
-		free (*stack);
+		free(*stack);
 		*stack = tmp;
 		term = term->next;
 	}
 	new->next = NULL;
-	free (tmp);
-	*stack = begin;          
+	free(tmp);
+	*stack = begin;
 }
 
-static void	ft_rot(t_nums **stack)    
+static void	ft_rot(t_nums **stack)
 {
 	t_nums	*begin;
 	t_nums	*start;
 	t_nums	*tmp;
-	
+
 	begin = *stack;
 	start = (*stack)->next;
 	tmp = (*stack)->next;
@@ -42,33 +53,33 @@ static void	ft_rot(t_nums **stack)
 	{
 		tmp = tmp->next;
 		*stack = (*stack)->next;
-        }
+	}
 	(*stack)->next = malloc(sizeof(t_nums));
 	(*stack)->next->num = begin->num;
 	(*stack)->next->next = NULL;
-	free (begin);
+	free(begin);
 	*stack = start;
 }
 
 static void	ft_swap(t_nums *stack)
 {
 	int	tmp;
-	
+
 	tmp = stack->num;
 	stack->num = stack->next->num;
 	stack->next->num = tmp;
 }
 
-void	ft_checker(t_nums **st_a, t_ops *ops)
+void		ft_checker(t_nums **st_a, t_ops *ops)
 {
 	t_nums	*st_b;
-	
+
 	st_b = NULL;
 	while (ops)
 	{
 		if (!ft_strcmp(ops->op, "sa") && *st_a && (*st_a)->next)
 			ft_swap(*st_a);
-		else if(!ft_strcmp(ops->op, "sb") && st_b && st_b->next)
+		else if (!ft_strcmp(ops->op, "sb") && st_b && st_b->next)
 			ft_swap(st_b);
 		else if (!ft_strcmp(ops->op, "pb") && *st_a)
 			st_b = ft_push(st_a, st_b);
@@ -85,5 +96,5 @@ void	ft_checker(t_nums **st_a, t_ops *ops)
 		ops = ops->next;
 	}
 	(ft_order(*st_a) && !st_b) ? ft_putendl("OK") : ft_putendl("KO");
-	ft_free(*st_a, st_b, ops);
-}	
+	ft_free(*st_a, st_b, NULL);
+}

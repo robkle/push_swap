@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   misc.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 14:35:53 by rklein            #+#    #+#             */
+/*   Updated: 2020/06/04 12:47:05 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_nums	*ft_last_link(t_nums *lst)
@@ -7,12 +19,12 @@ t_nums	*ft_last_link(t_nums *lst)
 
 	current = lst;
 	next = lst->next;
-	while(next)
+	while (next)
 	{
 		current = current->next;
 		next = next->next;
 	}
-	return(current);
+	return (current);
 }
 
 t_ops	*ft_last_op(t_ops *lst)
@@ -22,12 +34,30 @@ t_ops	*ft_last_op(t_ops *lst)
 
 	current = lst;
 	next = lst->next;
-	while(next)
+	while (next)
 	{
 		current = current->next;
 		next = next->next;
 	}
-	return(current);
+	return (current);
+}
+
+char	**ft_parcpy(int ac, char **av)
+{
+	char	**par;
+	int		i;
+
+	if (!(par = (char **)malloc(sizeof(char *) * ac)))
+		return (NULL);
+	i = 0;
+	av++;
+	while (*av)
+	{
+		par[i++] = ft_strdup(*av);
+		av++;
+	}
+	par[i] = NULL;
+	return (par);
 }
 
 void	ft_free(t_nums *st_a, t_nums *st_b, t_ops *ops)

@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 15:04:55 by rklein            #+#    #+#             */
+/*   Updated: 2020/06/01 15:07:08 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 t_ops	*ft_rrot_ops(t_nums ***stack, t_nums *last, t_ops *ops, char *str)
 {
@@ -18,15 +29,15 @@ t_ops	*ft_rrot_ops(t_nums ***stack, t_nums *last, t_ops *ops, char *str)
 		new = new->next;
 		new->num = (**stack)->num;
 		tmp = (**stack)->next;
-		free (**stack);
+		free(**stack);
 		**stack = tmp;
 		term = term->next;
 	}
 	new->next = NULL;
-	free (tmp);
+	free(tmp);
 	**stack = begin;
 	return (ft_ops(ops, str, 'p'));
-} 
+}
 
 t_ops	*ft_rot_ops(t_nums ***stack, t_ops *ops, char *str)
 {
@@ -45,7 +56,7 @@ t_ops	*ft_rot_ops(t_nums ***stack, t_ops *ops, char *str)
 	(**stack)->next = malloc(sizeof(t_nums));
 	(**stack)->next->num = begin->num;
 	(**stack)->next->next = NULL;
-	free (begin);
+	free(begin);
 	**stack = start;
 	return (ft_ops(ops, str, 'p'));
 }

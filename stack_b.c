@@ -1,5 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_b.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 15:27:32 by rklein            #+#    #+#             */
+/*   Updated: 2020/07/07 15:25:15 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
+
+static void	ft_sort_a(t_nums **st_a, t_nums **st_b, t_ops **ops)
+{
+	if ((*st_a)->num > (*st_a)->next->num)
+		*ops = ft_swap_ops(*st_a, *ops, "sa");
+	while (!ft_order(*st_a))
+	{
+		*st_b = ft_push(st_a, *st_b);
+		*ops = ft_ops(*ops, "pb", 'p');
+		ft_sort_b(st_b, ops);
+	}
+}
+
 
 void	ft_push_b(t_nums **st_a, t_nums **st_b, t_ops **ops)
 {
@@ -17,8 +41,9 @@ void	ft_push_b(t_nums **st_a, t_nums **st_b, t_ops **ops)
 				*ops = ft_swap_ops(*st_b, *ops, "sb");
 			*st_a = ft_push(st_b, *st_a);
 			*ops = ft_ops(*ops, "pa", 'p');
-			if ((*st_a)->num > (*st_a)->next->num)
-				*ops = ft_swap_ops(*st_a, *ops, "sa");
+			//if ((*st_a)->num > (*st_a)->next->num)
+			//	*ops = ft_swap_ops(*st_a, *ops, "sa");
+			ft_sort_a(st_a, st_b, ops); //NEW: sends to ft to sort a and check order
 		}
 		*st_a = ft_push(st_b, *st_a);
 		*ops = ft_ops(*ops, "pa", 'p');
@@ -41,7 +66,7 @@ void	ft_sort_b(t_nums **st, t_ops **ops)
 		else if ((*st)->num < sec->num && (*st)->num < last->num)
 			*ops = ft_rot_ops(&st, *ops, "rb");
 		else if ((*st)->num > sec->num && (*st)->num < last->num)
-			*ops = ft_rrot_ops(&st,last, *ops, "rrb");
+			*ops = ft_rrot_ops(&st, last, *ops, "rrb");
 	}
 	else if (sec && !sec->next && (*st)->num < sec->num)
 		*ops = ft_swap_ops(*st, *ops, "sb");

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/06/11 11:37:41 by rklein            #+#    #+#              #
+#    Updated: 2020/06/11 11:39:30 by rklein           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CH = checker
 
 PS = push_swap
@@ -12,9 +24,11 @@ CH_OBJ = ch_main.o
 
 PS_OBJ = ps_main.o
 
-SRC = checker.c misc.c operations.c print.c push_swap.c stack_a.c stack_b.c
+SRC = checker.c misc.c operations.c print.c push_swap.c stack_a.c stack_b.c \
+	  validator.c
 
-OBJ = checker.o misc.o operations.o print.o push_swap.o stack_a.o stack_b.o
+OBJ = checker.o misc.o operations.o print.o push_swap.o stack_a.o stack_b.o \
+	  validator.o
 
 INC = ./
 

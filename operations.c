@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/01 14:51:26 by rklein            #+#    #+#             */
+/*   Updated: 2020/06/03 14:42:02 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 t_ops	*ft_ops_ch(t_ops *ops)
 {
@@ -8,17 +19,17 @@ t_ops	*ft_ops_ch(t_ops *ops)
 	begin = ops;
 	ops = ft_last_op(ops);
 	if (ft_strcmp(ops->op, "ss") == 0)
-	{	
+	{
 		ops->op[1] = 'a';
 		begin = ft_ops(begin, "sb", 'x');
 	}
 	else if (ft_strcmp(ops->op, "rr") == 0)
-	{	
+	{
 		ops->op[1] = 'a';
 		begin = ft_ops(begin, "rb", 'x');
 	}
 	else if (ft_strcmp(ops->op, "rrr") == 0)
-	{	
+	{
 		ops->op[2] = 'a';
 		begin = ft_ops(begin, "rrb", 'x');
 	}
@@ -28,7 +39,7 @@ t_ops	*ft_ops_ch(t_ops *ops)
 t_ops	*ft_ops(t_ops *ops, char *str, char call)
 {
 	t_ops	*begin;
-	
+
 	if (ops == NULL)
 	{
 		begin = malloc(sizeof(t_ops));
@@ -44,10 +55,12 @@ t_ops	*ft_ops(t_ops *ops, char *str, char call)
 		ops->op = ft_strdup(str);
 		ops->next = NULL;
 	}
+	if (call == 'c')
+		free(str);
 	return (call == 'c' ? ft_ops_ch(begin) : begin);
 }
 
-int	ft_isop(char *str)
+int		ft_isop(char *str)
 {
 	int	op;
 
@@ -63,5 +76,7 @@ int	ft_isop(char *str)
 	op = !ft_strcmp(str, "rra") ? op + 1 : op;
 	op = !ft_strcmp(str, "rrb") ? op + 1 : op;
 	op = !ft_strcmp(str, "rrr") ? op + 1 : op;
+	if (op == 0)
+		ft_putendl("Error");
 	return (op);
 }
