@@ -45,14 +45,21 @@ int		main(int argc, char **argv)
 {
 	t_nums	*stack_a;
 	char	**par;
+	int		qrt[4];
 
 	if (argc >= 2)
 	{
 		par = argc == 2 ? ft_strsplit(argv[1], ' ') : ft_parcpy(argc, argv);
 		if (!ft_validator(par) || !(stack_a = ft_make_list(par)))
 			return (0);
+		ft_presort(stack_a, qrt);
 		if (!ft_order(stack_a))
-			ft_push_swap_a(&stack_a);
+		{
+			if (qrt[0] <= 12)
+				ft_push_swap_a(&stack_a);
+			else
+				ft_ps_long_a(&stack_a, qrt);
+		}
 	}
 	return (0);
 }

@@ -24,11 +24,11 @@ CH_OBJ = ch_main.o
 
 PS_OBJ = ps_main.o
 
-SRC = checker.c misc.c operations.c print.c push_swap.c stack_a.c stack_b.c \
-	  validator.c
+SRC = checker.c longsort.c misc.c operations.c presort.c print.c push_swap.c \
+		stack_a.c stack_b.c validator.c
 
-OBJ = checker.o misc.o operations.o print.o push_swap.o stack_a.o stack_b.o \
-	  validator.o
+OBJ = checker.o longsort.o misc.o operations.o presort.o print.o push_swap.o \
+		stack_a.o stack_b.o validator.o
 
 INC = ./
 
