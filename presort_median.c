@@ -2,22 +2,17 @@
 
 static void	ft_quartiles(int *nums, int *qrt)
 {
-	int	lt;
-	int	ut;
-	int	lsplit;
-	int	msplit;
-	int	usplit;
-	
-	lt = qrt[0] / 3;
-	ut = lt * 2;
-	lsplit = lt / 2;
-	msplit = ut - lsplit;
-	usplit = qrt[0] - lsplit;
-	qrt[1] = nums[lt - 1]; 
-	qrt[2] = nums[ut - 1];
-	qrt[3] = nums[lsplit - 1];
-	qrt[4] = nums[msplit - 1];
-	qrt[5] = nums[usplit - 1];
+	int	m;
+	int	lq;
+	int	hq;
+
+	m = qrt[0] / 2;
+	lq = qrt[0] / 4;
+	hq = m + lq;
+	qrt[1] = nums[m - 1];
+	qrt[2] = nums[lq - 1];
+	qrt[3] = nums[hq - 1];
+	qrt[4] = nums[((m + hq) / 2) - 1];
 }
 
 static int	*ft_numsrt(int *nums, int size)

@@ -12,61 +12,56 @@
 
 #include "push_swap.h"
 
-/*static void	ft_sort_a(t_nums **st_a, t_nums **st_b, t_ops **ops)
+static void	ft_sort_push(t_nums **st_a, t_nums **st_b, t_ops **ops)
 {
-	if ((*st_a)->num > (*st_a)->next->num)
-		*ops = ft_swap_ops(*st_a, *ops, "sa");
-	while (!ft_order(*st_a))
-
-		*st_b = ft_push(st_a, *st_b);
-		*ops = ft_ops(*ops, "pb", 'p');
-		ft_sort_b(st_b, ops);
-	}
-}*/
-
-
-void	ft_push_b(t_nums **st_a, t_nums **st_b, t_ops **ops)
-{
-	t_nums *last_a;
+	t_nums *last;
 	int		max;
-
-	if (*st_b)
+	
+	last = ft_last_link(*st_a);
+	max = last->num;
+	while ((*st_b)->next)
 	{
-		
-		last_a = ft_last_link(*st_a);
-		max = last_a->num; 
-		while ((*st_b)->next)
+		if ((*st_b)->num < (*st_b)->next->num)
+			*ops = ft_swap_ops(*st_b, *ops, "sb");
+		while ((*st_b)->num > (*st_a)->num && ((*st_a)->next &&
+					((*st_b)->num > (*st_a)->next->num)))
+			*ops = ft_rot_ops(&st_a, *ops, "ra");
+		last = ft_last_link(*st_a); 
+		while (last->num != max && last->num > (*st_b)->num)
 		{
-			if ((*st_b)->num < (*st_b)->next->num)
-				*ops = ft_swap_ops(*st_b, *ops, "sb");
-			while ((*st_b)->num > (*st_a)->num && ((*st_a)->next &&
-						((*st_b)->num > (*st_a)->next->num)))
-				*ops = ft_rot_ops(&st_a, *ops, "ra");
-			last_a = ft_last_link(*st_a); 
-			while (last_a->num != max && last_a->num > (*st_b)->num)
-			{
-				*ops = ft_rrot_ops(&st_a, last_a, *ops, "rra");
-				last_a = ft_last_link(*st_a);
-			} 
-			*st_a = ft_push(st_b, *st_a);
-			*ops = ft_ops(*ops, "pa", 'p');
-			if ((*st_a)->num > (*st_a)->next->num)
-				*ops = ft_swap_ops(*st_a, *ops, "sa");
-			//ft_sort_a(st_a, st_b, ops); //NEW: sends to ft to sort a and check order
-		}
-		//22.7.2020 rra stack a until last push from b (then remove if statement in while loop below)
+			*ops = ft_rrot_ops(&st_a, last, *ops, "rra");
+			last = ft_last_link(*st_a);
+		} 
 		*st_a = ft_push(st_b, *st_a);
 		*ops = ft_ops(*ops, "pa", 'p');
 		if ((*st_a)->num > (*st_a)->next->num)
 			*ops = ft_swap_ops(*st_a, *ops, "sa");
 	}
-	last_a = ft_last_link(*st_a);
-	while (last_a->num != max)
+}
+
+void	ft_push_b(t_nums **st_a, t_nums **st_b, t_ops **ops)
+{
+	t_nums *last;
+	int		max;
+
+	if (*st_b)
 	{
-		*ops = ft_rrot_ops(&st_a, last_a, *ops, "rra");
-		last_a = ft_last_link(*st_a);
-		if ((*st_a)->num > (*st_a)->next->num)
-			*ops = ft_swap_ops(*st_a, *ops, "sa");
+		last = ft_last_link(*st_a);
+		max = last->num;
+		ft_sort_push(st_a, st_b, ops); 
+		last = ft_last_link(*st_a);
+		while (last->num > (*st_b)->num && last->num != max)
+		{
+			*ops = ft_rrot_ops(&st_a, last, *ops, "rra");
+			last = ft_last_link(*st_a);
+		}
+		*st_a = ft_push(st_b, *st_a);
+		*ops = ft_ops(*ops, "pa", 'p');
+		while (last->num != max)
+		{
+			*ops = ft_rrot_ops(&st_a, last, *ops, "rra");
+			last = ft_last_link(*st_a);
+		}
 	} 
 	ft_print_ops(*ops);
 	ft_free(*st_a, *st_b, *ops);

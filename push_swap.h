@@ -36,6 +36,8 @@ int				ft_isop(char *str);
 void			ft_presort(t_nums *stack, int *qrt);
 void			ft_push_swap_a(t_nums **st_a);
 void			ft_ps_long_a(t_nums **st_a, int *qrt);
+void			ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt);
+void			ft_rotate_down_b(t_nums ***st_b, t_ops **ops, int split);
 t_nums			*ft_last_link(t_nums *lst);
 t_ops			*ft_last_op(t_ops *lst);
 int				ft_order(t_nums *stack);
