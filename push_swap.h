@@ -6,7 +6,7 @@
 /*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 15:07:18 by rklein            #+#    #+#             */
-/*   Updated: 2020/06/04 12:47:07 by rklein           ###   ########.fr       */
+/*   Updated: 2020/08/10 10:15:47 by rklein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int				ft_isop(char *str);
 void			ft_presort(t_nums *stack, int *qrt);
 void			ft_push_swap_a(t_nums **st_a);
 void			ft_ps_long_a(t_nums **st_a, int *qrt);
-void			ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt);
+void			ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops,
+		int *qrt);
 void			ft_rotate_down_b(t_nums ***st_b, t_ops **ops, int split);
 t_nums			*ft_last_link(t_nums *lst);
 t_ops			*ft_last_op(t_ops *lst);

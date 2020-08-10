@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   presort.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/10 10:33:21 by rklein            #+#    #+#             */
+/*   Updated: 2020/08/10 10:36:32 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	ft_quartiles(int *nums, int *qrt)
@@ -7,13 +19,13 @@ static void	ft_quartiles(int *nums, int *qrt)
 	int	lsplit;
 	int	msplit;
 	int	usplit;
-	
+
 	lt = qrt[0] / 3;
 	ut = lt * 2;
 	lsplit = lt / 2;
 	msplit = ut - lsplit;
 	usplit = qrt[0] - lsplit;
-	qrt[1] = nums[lt - 1]; 
+	qrt[1] = nums[lt - 1];
 	qrt[2] = nums[ut - 1];
 	qrt[3] = nums[lsplit - 1];
 	qrt[4] = nums[msplit - 1];
@@ -57,7 +69,7 @@ static int	*ft_numarr(t_nums *stack, int size)
 		i++;
 	}
 	return (ft_numsrt(nums, size));
-} 
+}
 
 static int	ft_numcount(t_nums *stack)
 {
@@ -72,7 +84,7 @@ static int	ft_numcount(t_nums *stack)
 	return (count);
 }
 
-void	ft_presort(t_nums *stack, int *qrt)
+void		ft_presort(t_nums *stack, int *qrt)
 {
 	int	*nums;
 

@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   longsort.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/10 10:13:37 by rklein            #+#    #+#             */
+/*   Updated: 2020/08/10 10:15:11 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	ft_rotate_down_b(t_nums ***st_b, t_ops **ops, int split)
+void		ft_rotate_down_b(t_nums ***st_b, t_ops **ops, int split)
 {
 	t_nums	*last;
-	
+
 	last = ft_last_link(**st_b);
 	while (last->num > split)
 	{
 		*ops = ft_rrot_ops(st_b, last, *ops, "rrb");
 		if ((**st_b)->num < (**st_b)->next->num)
-			*ops = ft_swap_ops(**st_b, *ops, "sb"); 
+			*ops = ft_swap_ops(**st_b, *ops, "sb");
 		last = ft_last_link(**st_b);
 	}
 }
@@ -70,21 +82,21 @@ static void	ft_ps_high(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
 			*st_b = ft_push(*st_a, *st_b);
 			*ops = ft_ops(*ops, "pb", 'p');
 			if ((*st_b)->num >= qrt[4])
-				*ops = ft_rot_ops(&st_b, *ops, "rb"); 
+				*ops = ft_rot_ops(&st_b, *ops, "rb");
 			count++;
-		}	
+		}
 		else
 			*ops = ft_rot_ops(st_a, *ops, "ra");
 	}
 	ft_rotate_down_b(&st_b, ops, qrt[3]);
 }
 
-void	ft_ps_long_a(t_nums **st_a, int *qrt)
+void		ft_ps_long_a(t_nums **st_a, int *qrt)
 {
 	t_ops	*ops;
 	t_nums	*st_b;
 	int		count;
-	
+
 	ops = NULL;
 	st_b = NULL;
 	count = 0;

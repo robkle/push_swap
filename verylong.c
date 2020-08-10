@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   verylong.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rklein <rklein@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/10 10:22:13 by rklein            #+#    #+#             */
+/*   Updated: 2020/08/10 10:31:30 by rklein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	ft_pre_pa(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
@@ -25,7 +37,23 @@ static void	ft_pre_pa(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
 	ft_push_b(*st_a, st_b, ops);
 }
 
-void	ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
+static void	ft_push_top(t_nums ***st_a, t_nums **st_b, t_ops **ops)
+{
+	*st_b = ft_push(*st_a, *st_b);
+	*ops = ft_ops(*ops, "pb", 'p');
+	if ((*st_b)->num < (*st_b)->next->num)
+		*ops = ft_swap_ops(*st_b, *ops, "sb");
+}
+
+static void	ft_push_bottom(t_nums ***st_a, t_nums **st_b, t_ops **ops)
+{
+	*st_b = ft_push(*st_a, *st_b);
+	*ops = ft_ops(*ops, "pb", 'p');
+	*ops = ft_rot_ops(&st_b, *ops, "rb");
+}
+
+void		ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops,
+		int *qrt)
 {
 	int	split[6];
 	int	count;
@@ -36,17 +64,12 @@ void	ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
 	{
 		if ((**st_a)->num < split[1])
 		{
-			*st_b = ft_push(*st_a, *st_b);
-			*ops = ft_ops(*ops, "pb", 'p');
-			if ((*st_b)->num < (*st_b)->next->num)	
-				*ops = ft_swap_ops(*st_b, *ops, "sb");
+			ft_push_top(st_a, st_b, ops);
 			count++;
 		}
 		else if ((**st_a)->num >= split[1] && (**st_a)->num <= split[2])
 		{
-			*st_b = ft_push(*st_a, *st_b);
-			*ops = ft_ops(*ops, "pb", 'p');
-			*ops = ft_rot_ops(&st_b, *ops, "rb");
+			ft_push_bottom(st_a, st_b, ops);
 			count++;
 		}
 		else
@@ -54,4 +77,3 @@ void	ft_ps_rest_long(t_nums ***st_a, t_nums **st_b, t_ops **ops, int *qrt)
 	}
 	ft_pre_pa(st_a, st_b, ops, qrt);
 }
-			
